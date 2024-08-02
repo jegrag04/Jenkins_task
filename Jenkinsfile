@@ -24,7 +24,7 @@ pipeline {
                 // Example build step
                 echo 'Building the project...'
                 // Replace with your build command
-		            sh 'chmod +x ./build.sh'
+		sh 'chmod a+x ~/build.sh'
                 sh './build.sh'
             }
         }
