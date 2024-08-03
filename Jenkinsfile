@@ -1,10 +1,6 @@
 pipeline {
     agent any
-
-    environment {
-        // Define your environment variables if needed
-        EMAIL_RECIPIENT = 'jegantheesh743@gmail.com'
-    }
+}
 
     triggers {
         // Poll GitHub for changes
@@ -24,39 +20,43 @@ pipeline {
                 // Example build step
                 echo 'Building the project...'
                 // Replace with your build command
-		sh 'chmod +x build.sh'
+				sh 'chmod +x build.sh'
                 sh './build.sh'
             }
         }
     }
     
     post {
-        success {
-            email (
-                to: "${env.EMAIL_RECIPIENT}",
-                subject: "Build Successful: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-                body: """\
-                <p>Build Successful!</p>
-                <p>Job: ${env.JOB_NAME}</p>
-                <p>Build Number: ${env.BUILD_NUMBER}</p>
-                <p>Build URL: ${env.BUILD_URL}</p>
-                """
-            )
-        }
-        failure {
-            email (
-                to: "${env.EMAIL_RECIPIENT}",
-                subject: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
-                body: """\
-                <p>Build Failed!</p>
-                <p>Job: ${env.JOB_NAME}</p>
-                <p>Build Number: ${env.BUILD_NUMBER}</p>
-                <p>Build URL: ${env.BUILD_URL}</p>
-                """
-            )
-        }
         always {
             echo 'Pipeline execution finished.'
+        }
+        success {
+            mail to: 'jegantheesh743@gmail.com',
+                 subject: "Build Successful: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                 body: """
+                 <html>
+                     <body>
+                         <h1>Build Successful!</h1>
+                         <p>Job: ${env.JOB_NAME}</p>
+                         <p>Build Number: ${env.BUILD_NUMBER}</p>
+                         <p>Build URL: ${env.BUILD_URL}</p>
+                     </body>
+                 </html>
+                 """
+        }
+        failure {
+            mail to: 'jegantheesh743@gmail.com',
+                 subject: "Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                 body: """
+                 <html>
+                     <body>
+                         <h1>Build Failed!</h1>
+                         <p>Job: ${env.JOB_NAME}</p>
+                         <p>Build Number: ${env.BUILD_NUMBER}</p>
+                         <p>Build URL: ${env.BUILD_URL}</p>
+                     </body>
+                 </html>
+                 """
         }
     }
 }
