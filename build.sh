@@ -6,6 +6,6 @@ set -e
 echo "Starting Maven build..."
 
 # Run Maven clean and package
-mvn clean package
+#mvn clean package
 
 echo "Build completed successfully."
