@@ -1,6 +1,5 @@
 pipeline {
     agent any
-}
 
     triggers {
         // Poll GitHub for changes
