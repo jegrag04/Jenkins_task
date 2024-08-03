@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define your environment variables if needed
-        EMAIL_RECIPIENT = 'jegatheeshprakasam2702@gmail.com'
+        EMAIL_RECIPIENT = 'jegantheesh743@gmail.com'
     }
 
     triggers {
@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from the repository
-                git 'https://github.com/jegrag04/Jenkins_task.git'
+                git branch: 'main', url: 'https://github.com/jegrag04/Jenkins_task.git' 
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
                 // Example build step
                 echo 'Building the project...'
                 // Replace with your build command
-		sh 'chmod a+x ~/build.sh'
+		sh 'chmod +x build.sh'
                 sh './build.sh'
             }
         }
